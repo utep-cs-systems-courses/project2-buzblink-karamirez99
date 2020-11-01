@@ -9,7 +9,7 @@ AS 	       = msp430-elf-as
 
 all: toy.elf
 
-toy.elf: ${COMMON_OBJECTS} toyMain.o buzzer.o wdInterruptHandler.o ../demos/lib/libTimer.a
+toy.elf: ${COMMON_OBJECTS} toyMain.o buzzer.o wdInterruptHandler.o song.o ../demos/lib/libTimer.a
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: toy.elf
@@ -20,4 +20,5 @@ clean:
 
 buzzer.c: buzzer.h
 toyMain.c: buzzer.h
-wdInterruptHandler.o: buzzer.h
+wdInterruptHandler.o: song.h
+song.c: song.h
