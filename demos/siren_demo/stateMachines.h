@@ -2,6 +2,6 @@
 #define stateMachine_included
 
 void state_advance();
-void show_redLED();
+void buzzer_advance();
 
 #endif // included

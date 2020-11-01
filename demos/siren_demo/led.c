@@ -1,5 +1,4 @@
 #include <msp430.h>
-#include <stdio.h>
 #include "led.h"
 
 unsigned char red_on = 0, green_on = 0;
@@ -17,8 +16,6 @@ void led_init()
 
 void led_update()
 {
-
-  // printf(BIT5);
   if (led_changed) {
     char ledFlags = redVal[red_on] | greenVal[green_on];
     
