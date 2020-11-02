@@ -1,17 +1,18 @@
 #include "song.h"
 #include "buzzer.h"
-#include "led.h";
+#include "led.h"
 
 #define SONGP1LEN 28
 #define SONGP2LEN 25
 
 char songLen;
-char songSectionsLen[] = {SONGP1LEN, 25};
+char songSectionsLen[] = {SONGP1LEN, SONGP2LEN};
+char noteLength;
 unsigned char songSection = 0;
 unsigned char reset = 0;
 
 const short noteCollection[11] = {
-  SILENCE, B3, C4, D4, E4,
+  SILENCE, G3, C4, D4, E4,
   F4, G4, A4, B4, C5, G3
 };
 
@@ -25,18 +26,18 @@ const unsigned char songPart1[SONGP1LEN] = {
 const unsigned char songPart2[SONGP2LEN] = {
   0x08, 0x44, 0x54, 0x61, 0x61, 0x61, 0x61, 0x64,
   0x21, 0x41, 0x31, 0x31, 0x31, 0x31, 0x34,
-  0x41, 0x31, 0x25, 0xA1, 0x41, 0x51, 0x31, 0x22,
-  0x01, 0x28
+  0x41, 0x31, 0x25, 0x11, 0x41, 0x51, 0x31, 0x21,
+  0x28, 0x24
 };
 
 unsigned char *songSections[] = {songPart1, songPart2};
 
 void next_note()
 {
-  static char noteLength = 0;
+  static char noteLength = 0;             
   static char songPos = -1;
-  static char notExtending = 1;
-  static char extensionCount = 0;
+  static char notExtending = 1;           //Instead of writing silence, it will be assumed
+  static char extensionCount = 0;         //Length of assumed silence when extending
   static char finishedSection = 0;
   
   if (reset) {
@@ -47,14 +48,11 @@ void next_note()
     reset = 0;
     finishedSection = 0;
     green_on = 0;
-    led_update();
   }
   
   if (songPos == songSectionsLen[songSection] - 1){
     finishedSection = 1;
     green_on = 1;
-    led_changed = 0;
-    led_update();
     buzzer_set_period(SILENCE);
   }
   
@@ -69,7 +67,9 @@ void next_note()
     
     // 2nd 4 bits contains index for the note itself
     buzzer_set_period(noteCollection[(noteInSong >> 4) & 0x0F]);
-    
+
+
+    //Instead of writing in silence extensionCount is assumed silence
     if (noteLength % 4 != 0) {
       notExtending = 0;
       extensionCount = noteLength % 4;

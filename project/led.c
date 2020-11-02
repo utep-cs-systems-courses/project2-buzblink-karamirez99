@@ -22,8 +22,9 @@ void led_update()
     P1OUT &= (0xff^LEDS) | ledFlags;
     P1OUT |= ledFlags;
     led_changed = 0;
+    
   } else if(!led_enabled){
-    char ledFlags = redVal[0] | greenVal[0];
+    char ledFlags = 0;
     P1OUT &= (0xFF^LEDS) | ledFlags;
     P1OUT |= ledFlags;
   }

@@ -29,23 +29,27 @@ void switch_interrupt_handler()
 {
   char p2Val = switch_update_interrupt_sense();
   static char paused = 0;
-  
+
+  //play section 1
   if(!(p2Val & SW1)) {
     playing = 1;
     songSection = 0;
     reset = 1;
   }
-  
+
+  //play section 2
   if (!(p2Val & SW2)) {
     playing = 1;
     songSection = 1;
     reset = 1;
   }
 
+  //turn off leds
   if (!(p2Val & SW3)) {
     led_enabled = !led_enabled;
   }
 
+  //pause song and light state machine at given moment
   if (!(p2Val & SW4)) {
     
     if (!paused && playing){
@@ -57,7 +61,4 @@ void switch_interrupt_handler()
     }
     
   }
-  
-  // switch_state_changed = 1;   
-  //code to evaluate which switches and what state we are on
 }

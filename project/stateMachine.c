@@ -7,28 +7,23 @@ static char brightnessChange = 0;
 
 char toggle_red(char value)
 {
-  if (on_ratio == 0) {
+  if (on_ratio == 0) {        //on_ratio of 0 is just the led off
     red_on = 0;
     return 1;
   }
   
-  if (value == 1) {
+  if (value == 1) {           //the start of the led dim cycle is on
     red_on = 1;
     return 1;
   }
 
-  if(value == on_ratio + 1){
+  if(value == on_ratio + 1){  //the end of the on_ratio cycle is an off led
     red_on = 0;
     return 1;
   }
 
   return 0;
 }
-
-//void change_brightness (char level)
-//{
-  // on_ratio = level;
-  //}
 
 void show_redLED() {
   static char count = -150;
@@ -43,13 +38,14 @@ void show_redLED() {
   if (count % 50 == 0){
     on_ratio += brightnessChange;
   }
-
+  
   changed = toggle_red(brightness_state);
   led_changed |= changed;
   brightness_state = (brightness_state == 4) ? 1 : brightness_state + 1;
   led_update();
 }
 
+/*Composed of 3 states, off, increasing brightness and decreasing brightness */
 char light_advance() {
   static char state = 0;
   char brightnessChange;
