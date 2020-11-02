@@ -3,6 +3,7 @@
 
 
 #define SILENCE 0
+#define G3 100205
 #define B3 0
 #define C4 7644
 #define D4 6811
@@ -13,9 +14,12 @@
 #define B4 4050
 #define C5 3822
 
-extern const short noteCollection[10];
+extern const short noteCollection[11];
 extern char noteLength;
+extern unsigned char songSection;
+extern unsigned char reset;
 
 void next_note();
+void change_section(char section);
 
 #endif

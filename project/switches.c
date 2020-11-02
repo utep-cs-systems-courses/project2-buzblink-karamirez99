@@ -32,15 +32,18 @@ void switch_interrupt_handler()
   
   if(!(p2Val & SW1)) {
     playing = 1;
-      //do specific segment 1
+    songSection = 0;
+    reset = 1;
   }
   
-  if (p2Val & SW2) {
-    //sw 2 logic
+  if (!(p2Val & SW2)) {
+    playing = 1;
+    songSection = 1;
+    reset = 1;
   }
 
-  if (p2Val & SW3) {
-    //sw 3 logic
+  if (!(p2Val & SW3)) {
+    led_enabled = !led_enabled;
   }
 
   if (!(p2Val & SW4)) {

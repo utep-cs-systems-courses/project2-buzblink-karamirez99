@@ -25,17 +25,16 @@ char toggle_red(char value)
   return 0;
 }
 
-void change_brightness (char level)
-{
-  on_ratio = level;
-}
+//void change_brightness (char level)
+//{
+  // on_ratio = level;
+  //}
 
 void show_redLED() {
   static char count = -150;
   static char brightness_state = 0;
   static char brightnessChange = 0;
   char changed = 0;
-
  
   if (++count == 100) {
     brightnessChange = light_advance();
