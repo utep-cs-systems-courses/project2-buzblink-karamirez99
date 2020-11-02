@@ -10,9 +10,10 @@
 #define F4 5727
 #define G4 5102
 #define A4 4545
-#define B4 0
+#define B4 4050
+#define C5 3822
 
-extern const short noteCollection[9]; 
+extern const short noteCollection[10];
 extern char noteLength;
 
 void next_note();

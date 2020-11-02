@@ -2,6 +2,8 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
+char playing = 0;
+
 void buzzer_init()
 {
   timerAUpmode();
