@@ -1,14 +1,14 @@
 #include <msp430.h>
 #include "song.h"
-#include "buzzer.h"
+#include "stateMachine.h"
 
 void __interrupt_vec(WDT_VECTOR) WDT(){
-  static char eigthCount = 0;
+  static unsigned char sixteenthCount = 0;
 
-  if (++eigthCount == 162) {
-    //next_note();
-    buzzer_set_period(0);
-    eigthCount = 0;
+  show_redLED();
+  if (++sixteenthCount == 50) {
+    next_note();
+    sixteenthCount = 0;
   }
 
 }

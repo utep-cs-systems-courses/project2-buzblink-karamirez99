@@ -5,6 +5,7 @@
 int main(void) {
   configureClocks();
   buzzer_init();
+  led_init();
   enableWDTInterrupts();
 
   or_sr(0x18);
